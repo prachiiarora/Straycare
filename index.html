@@ -1,0 +1,495 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#174d38">
+<title>StrayCare | Every Life Matters</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+ font-family:Arial,sans-serif;
+ background:#f7f5ec;
+ color:#243b30;
+ padding-bottom:85px;
+}
+header{
+ background:#174d38;
+ color:white;
+ padding:22px 20px;
+ border-radius:0 0 25px 25px;
+}
+.brand{font-size:25px;font-weight:800}
+.brand span{color:#f6bd65}
+.tagline{font-size:12px;margin-top:5px;color:#d7e8d9}
+.header-row{display:flex;justify-content:space-between;align-items:center}
+.paw{font-size:32px}
+.hero{
+ margin:20px;
+ padding:25px 20px;
+ border-radius:20px;
+ background:#e6eee2;
+}
+.hero small{color:#d17a32;font-weight:bold}
+.hero h1{font-size:27px;margin:12px 0}
+.hero p{font-size:14px;line-height:1.6;color:#52675a}
+.primary{
+ background:#e47c37;
+ color:white;
+ border:0;
+ border-radius:12px;
+ padding:14px 18px;
+ font-size:15px;
+ font-weight:bold;
+ margin-top:18px;
+ width:100%;
+}
+.section{padding:10px 20px;margin-top:12px}
+.section-title{font-size:19px;font-weight:bold;margin-bottom:15px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.stat{
+ background:white;
+ padding:15px 8px;
+ border-radius:15px;
+ text-align:center;
+ box-shadow:0 3px 12px #00000008;
+}
+.stat strong{display:block;font-size:23px;color:#174d38}
+.stat span{font-size:11px;color:#718075}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.action{
+ background:white;
+ border-radius:15px;
+ padding:18px 12px;
+ border:1px solid #e8e8dd;
+ text-align:center;
+ font-weight:bold;
+ font-size:13px;
+}
+.action div{font-size:26px;margin-bottom:8px}
+.case{
+ background:white;
+ border-radius:15px;
+ padding:15px;
+ margin-bottom:12px;
+ box-shadow:0 3px 12px #00000008;
+}
+.case-top{display:flex;justify-content:space-between;gap:8px}
+.case h3{font-size:15px}
+.case p{font-size:12px;color:#718075;margin-top:7px;line-height:1.5}
+.status{
+ background:#fdf0dc;
+ color:#a35d20;
+ padding:6px 9px;
+ border-radius:20px;
+ font-size:10px;
+ height:max-content;
+}
+.case button{
+ border:0;
+ background:#e7eee6;
+ color:#174d38;
+ padding:9px 12px;
+ border-radius:9px;
+ margin-top:12px;
+ font-weight:bold;
+}
+nav{
+ position:fixed;
+ bottom:0;
+ left:0;
+ right:0;
+ background:white;
+ display:flex;
+ justify-content:space-around;
+ padding:12px 5px;
+ box-shadow:0 -3px 15px #00000010;
+ z-index:5;
+}
+nav button{
+ border:0;
+ background:none;
+ color:#718075;
+ font-size:11px;
+ font-weight:bold;
+}
+nav button span{display:block;font-size:21px;margin-bottom:4px}
+nav button.active{color:#174d38}
+.page{display:none}
+.page.active{display:block}
+.modal{
+ display:none;
+ position:fixed;
+ inset:0;
+ background:#0009;
+ z-index:10;
+ padding:15px;
+ overflow:auto;
+}
+.modal-box{
+ background:#fff;
+ border-radius:20px;
+ padding:22px;
+ margin:25px auto;
+ max-width:500px;
+}
+.modal h2{margin-bottom:18px}
+label{display:block;font-size:13px;font-weight:bold;margin:14px 0 7px}
+input,select,textarea{
+ width:100%;
+ padding:12px;
+ border:1px solid #d8dfd7;
+ border-radius:10px;
+ background:#fafbf8;
+ font-size:14px;
+ color:#243b30;
+}
+textarea{height:85px;resize:vertical}
+.close{
+ float:right;
+ border:0;
+ background:none;
+ font-size:25px;
+}
+.secondary{
+ background:#e8eee7;
+ color:#174d38;
+ border:0;
+ padding:13px;
+ border-radius:10px;
+ width:100%;
+ margin-top:9px;
+}
+.preview{width:100%;max-height:170px;object-fit:cover;border-radius:10px;margin-top:10px;display:none}
+.empty{text-align:center;padding:25px;color:#718075;font-size:13px}
+footer{text-align:center;padding:20px;color:#829086;font-size:11px}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="header-row">
+  <div>
+   <div class="brand">🐾 Stray<span>Care</span></div>
+   <div class="tagline">Every life matters. Every paw deserves care.</div>
+  </div>
+  <div class="paw">💚</div>
+ </div>
+</header>
+
+<main>
+<!-- HOME -->
+<section id="home" class="page active">
+ <div class="hero">
+  <small>❤️ BE THEIR VOICE</small>
+  <h1>They need help.<br>We can make a difference.</h1>
+  <p>See an injured or helpless stray animal? Report it and help connect them with care and rescue.</p>
+  <button class="primary" onclick="openForm()">🚨 REPORT AN ANIMAL</button>
+ </div>
+
+ <div class="section">
+  <div class="section-title">Our Impact 🐾</div>
+  <div class="stats">
+   <div class="stat"><strong id="total">0</strong><span>Reports</span></div>
+   <div class="stat"><strong id="rescued">0</strong><span>Rescued</span></div>
+   <div class="stat"><strong id="recovered">0</strong><span>Recovered</span></div>
+  </div>
+ </div>
+
+ <div class="section">
+  <div class="section-title">Quick Actions</div>
+  <div class="actions">
+   <div class="action" onclick="openForm()"><div>📸</div>Report an Animal</div>
+   <div class="action" onclick="showPage('cases')"><div>🐕</div>View Rescue Cases</div>
+  </div>
+ </div>
+
+ <div class="section">
+  <div class="section-title">Recent Reports</div>
+  <div id="recent"></div>
+ </div>
+</section>
+
+<!-- CASES -->
+<section id="cases" class="page">
+ <div class="section">
+  <div class="section-title">Rescue Dashboard 🐾</div>
+  <input id="search" placeholder="Search animal or location..." oninput="render()">
+  <div style="height:12px"></div>
+  <select id="filter" onchange="render()">
+   <option value="All">All Cases</option>
+   <option>Reported</option>
+   <option>Accepted</option>
+   <option>Rescued</option>
+   <option>Under Treatment</option>
+   <option>Recovered</option>
+  </select>
+  <div style="height:15px"></div>
+  <div id="allCases"></div>
+ </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="page">
+ <div class="section">
+  <div class="section-title">About StrayCare 💚</div>
+  <div class="case">
+   <h3>Every animal deserves a chance.</h3>
+   <p>StrayCare is a community-focused animal rescue prototype designed to connect people who spot animals in need with volunteers and rescue organisations.</p>
+   <p>Our mission is to make reporting, rescue coordination and recovery tracking easier.</p>
+  </div>
+  <div class="case">
+   <h3>Our Mission</h3>
+   <p>🐾 Faster reporting<br><br>❤️ Compassionate care<br><br>🤝 Community participation<br><br>🏥 Better recovery tracking</p>
+  </div>
+  <div class="case">
+   <h3>Important Notice</h3>
+   <p>This is currently a demonstration application. Reports are saved on this device only. No real rescue team or emergency service is contacted.</p>
+  </div>
+ </div>
+</section>
+</main>
+
+<nav>
+ <button class="active" onclick="showPage('home',this)"><span>🏠</span>Home</button>
+ <button onclick="openForm()"><span>➕</span>Report</button>
+ <button onclick="showPage('cases',this)"><span>🐾</span>Rescue Cases</button>
+ <button onclick="showPage('about',this)"><span>💚</span>About</button>
+</nav>
+
+<!-- REPORT FORM -->
+<div class="modal" id="reportModal">
+ <div class="modal-box">
+  <button class="close" onclick="closeForm()">×</button>
+  <h2>🐾 Report an Animal</h2>
+  <form id="reportForm">
+   <label>Animal Type *</label>
+   <select id="animal" required>
+    <option value="">Select animal</option>
+    <option>Dog</option>
+    <option>Cat</option>
+    <option>Other</option>
+   </select>
+
+   <label>Upload Animal Photo</label>
+   <input type="file" id="photo" accept="image/*">
+   <img id="photoPreview" class="preview">
+
+   <label>Describe the Problem *</label>
+   <textarea id="description" placeholder="Describe the animal's condition..." required></textarea>
+
+   <label>Injury Severity *</label>
+   <select id="severity" required>
+    <option value="">Select severity</option>
+    <option>Low</option>
+    <option>Medium</option>
+    <option>High</option>
+    <option>Critical</option>
+   </select>
+
+   <label>Animal Location *</label>
+   <input id="location" placeholder="Area, street or landmark" required>
+    
+<button type="button" class="secondary" onclick="getCurrentLocation()">
+ 📍 Use My Current Location
+</button>
+<p id="gpsMessage" style="font-size:12px;color:#718075;margin-top:8px"></p>
+
+
+   <button class="primary" type="submit">Submit Rescue Report</button>
+   <button class="secondary" type="button" onclick="closeForm()">Cancel</button>
+  </form>
+ </div>
+</div>
+
+<footer>Made with 💚 for every stray life | StrayCare v1.0</footer>
+
+<script>
+let reports=[];
+
+try{
+ reports=JSON.parse(localStorage.getItem("straycareReports"))||[];
+}catch(e){reports=[];}
+
+function save(){
+ localStorage.setItem("straycareReports",JSON.stringify(reports));
+ render();
+}
+
+function openForm(){
+ document.getElementById("reportModal").style.display="block";
+}
+
+  
+function getCurrentLocation(){
+ const message = document.getElementById("gpsMessage");
+ const locationInput = document.getElementById("location");
+
+ if(!navigator.geolocation){
+  message.textContent = "GPS is not supported.";
+  return;
+ }
+
+ message.textContent = "Getting your location...";
+
+ navigator.geolocation.getCurrentPosition(
+  function(position){
+   const lat = position.coords.latitude;
+   const lon = position.coords.longitude;
+
+   locationInput.value = lat.toFixed(6) + ", " + lon.toFixed(6);
+
+   message.textContent = "✓ Location captured!";
+  },
+  function(error){
+   message.textContent = "Unable to get location. Please enter it manually.";
+  },
+  {
+   enableHighAccuracy:true,
+   timeout:15000,
+   maximumAge:0
+  }
+ );
+}
+
+function closeForm(){
+ document.getElementById("reportModal").style.display="none";
+}
+function showPage(id,button){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+ if(button)button.classList.add("active");
+ render();
+ window.scrollTo(0,0);
+}
+
+document.getElementById("photo").addEventListener("change",function(){
+ const file=this.files[0];
+ const preview=document.getElementById("photoPreview");
+ if(file){
+  if(file.size>1500000){
+   alert("Please choose a photo smaller than 1.5 MB.");
+   this.value="";
+   preview.style.display="none";
+   return;
+  }
+  preview.src=URL.createObjectURL(file);
+  preview.style.display="block";
+ }else{
+  preview.style.display="none";
+ }
+});
+
+document.getElementById("reportForm").addEventListener("submit",function(e){
+ e.preventDefault();
+
+ const file=document.getElementById("photo").files[0];
+
+ const report={
+  id:Date.now(),
+  animal:document.getElementById("animal").value,
+  description:document.getElementById("description").value,
+  severity:document.getElementById("severity").value,
+  location:document.getElementById("location").value,
+  photo:"",
+  status:"Reported",
+  date:new Date().toLocaleDateString()
+ };
+
+ function finish(data){
+  reports.unshift(data);
+  save();
+  document.getElementById("reportForm").reset();
+  document.getElementById("photoPreview").style.display="none";
+  closeForm();
+  showPage("cases");
+  alert("Your demo rescue report has been saved!");
+ }
+
+ if(file){
+  const reader=new FileReader();
+  reader.onload=function(){
+   report.photo=reader.result;
+   finish(report);
+  };
+  reader.readAsDataURL(file);
+ }else{
+  finish(report);
+ }
+});
+
+
+function updateStatus(id){
+ const stages = [
+  "Reported",
+  "Accepted",
+  "Rescued",
+  "Under Treatment",
+  "Recovered"
+ ];
+
+ const item = reports.find(r => r.id === id);
+
+ if(!item) return;
+
+ const index = stages.indexOf(item.status);
+
+ if(index >= 0 && index < stages.length - 1){
+  item.status = stages[index + 1];
+  save();
+ }
+}
+
+
+function card(r){
+ return `
+ <div class="case">
+  <div class="case-top">
+   <h3>${escapeHTML(r.animal)} 🐾</h3>
+   <span class="status">${escapeHTML(r.status)}</span>
+  </div>
+  ${r.photo?`<img src="${r.photo}" style="width:100%;height:145px;object-fit:cover;border-radius:10px;margin-top:10px">`:""}
+  <p><b>Location:</b> ${escapeHTML(r.location)}</p>
+  <p><b>Severity:</b> ${escapeHTML(r.severity)}</p>
+  <p>${escapeHTML(r.description)}</p>
+  <p><b>Reported:</b> ${escapeHTML(r.date)}</p>
+  ${r.status!=="Recovered"?`<button onclick="updateStatus(${r.id})">Update Status →</button>`:""}
+ </div>`;
+}
+
+function escapeHTML(value){
+ return String(value).replace(/[&<>"']/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+ });
+}
+
+function render(){
+ document.getElementById("total").textContent=reports.length;
+ document.getElementById("rescued").textContent=
+ reports.filter(r=>["Rescued","Under Treatment","Recovered"].includes(r.status)).length;
+ document.getElementById("recovered").textContent=
+ reports.filter(r=>r.status==="Recovered").length;
+
+ document.getElementById("recent").innerHTML=
+ reports.length?reports.slice(0,3).map(card).join(""):'<div class="empty">No reports yet. Be the first to help! 💚</div>';
+
+ const query=(document.getElementById("search")?.value||"").toLowerCase();
+ const filter=document.getElementById("filter")?.value||"All";
+ const filtered=reports.filter(r=>
+ (filter==="All"||r.status===filter)&&
+ (r.animal.toLowerCase().includes(query)||r.location.toLowerCase().includes(query))
+ );
+
+ document.getElementById("allCases").innerHTML=
+ filtered.length?filtered.map(card).join(""):'<div class="empty">No matching rescue cases found.</div>';
+}
+
+render();
+</script>
+
+</body>
+</html>
